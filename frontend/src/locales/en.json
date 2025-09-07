@@ -1,0 +1,61 @@
+{
+  "auth": {
+    "login": {
+      "title": "Welcome back",
+      "description": "Sign in to your account to continue",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "signInButton": "Sign in",
+      "signingIn": "Signing in...",
+      "noAccount": "Don't have an account?",
+      "signUp": "Sign up",
+      "loginSuccess": "Login successful!",
+      "loginFailed": "Login failed"
+    },
+    "register": {
+      "title": "Create an account",
+      "description": "Get started with your fitness journey",
+      "name": "Name",
+      "namePlaceholder": "Enter your name",
+      "email": "Email",
+      "emailPlaceholder": "Enter your email",
+      "password": "Password",
+      "passwordPlaceholder": "Enter your password",
+      "confirmPassword": "Confirm Password",
+      "confirmPasswordPlaceholder": "Confirm your password",
+      "signUpButton": "Sign up",
+      "signingUp": "Signing up...",
+      "haveAccount": "Already have an account?",
+      "signIn": "Sign in",
+      "registerSuccess": "Account created successfully!",
+      "registerFailed": "Registration failed"
+    }
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "gyms": "Gyms",
+    "checkIns": "Check-ins",
+    "profile": "Profile",
+    "admin": "Admin",
+    "logout": "Logout"
+  },
+  "common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "success": "Success",
+    "cancel": "Cancel",
+    "save": "Save",
+    "edit": "Edit",
+    "delete": "Delete",
+    "confirm": "Confirm",
+    "language": "Language"
+  },
+  "validation": {
+    "emailInvalid": "Please enter a valid email",
+    "passwordMin": "Password must be at least 6 characters",
+    "passwordsNotMatch": "Passwords do not match",
+    "nameRequired": "Name is required"
+  }
+}
