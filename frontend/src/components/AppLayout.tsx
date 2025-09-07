@@ -6,11 +6,9 @@ import { Button } from '@/components/ui/Button'
 import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { useAuth } from '@/contexts/AuthContext'
 import { useSignOut } from '@/hooks/use-auth'
-import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 
 export function AppLayout() {
   const { user } = useAuth()
-  const { t } = useTranslation()
   const signOutMutation = useSignOut()
   const location = useLocation()
   const { t } = useTranslation()
