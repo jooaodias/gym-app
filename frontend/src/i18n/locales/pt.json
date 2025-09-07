@@ -1,0 +1,71 @@
+{
+  "common": {
+    "loading": "Carregando...",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "delete": "Excluir",
+    "edit": "Editar",
+    "back": "Voltar",
+    "search": "Buscar",
+    "email": "E-mail",
+    "password": "Senha",
+    "name": "Nome"
+  },
+  "navigation": {
+    "dashboard": "Painel",
+    "gyms": "Academias",
+    "checkIns": "Check-ins",
+    "profile": "Perfil",
+    "admin": "Admin",
+    "logout": "Sair"
+  },
+  "auth": {
+    "login": "Entrar",
+    "register": "Cadastrar",
+    "loginTitle": "Entre na sua conta",
+    "loginDescription": "Digite suas credenciais para acessar seu painel fitness",
+    "registerTitle": "Criar uma conta",
+    "registerDescription": "Junte-se a nós para acompanhar sua jornada fitness",
+    "emailRequired": "Por favor, digite um e-mail válido",
+    "passwordRequired": "A senha deve ter pelo menos 6 caracteres",
+    "nameRequired": "Nome é obrigatório",
+    "loginButton": "Entrar",
+    "registerButton": "Criar Conta",
+    "noAccount": "Não tem uma conta?",
+    "hasAccount": "Já tem uma conta?",
+    "signUp": "Cadastre-se",
+    "signIn": "Entre"
+  },
+  "dashboard": {
+    "welcome": "Bem-vindo de volta, {{name}}!",
+    "journeyOverview": "Aqui está o resumo da sua jornada fitness",
+    "totalCheckIns": "Total de Check-ins",
+    "thisWeek": "Esta Semana",
+    "thisMonth": "Este Mês",
+    "streak": "Sequência Atual",
+    "days": "dias"
+  },
+  "gyms": {
+    "title": "Academias",
+    "searchPlaceholder": "Buscar academias...",
+    "noGymsFound": "Nenhuma academia encontrada",
+    "distance": "{{distance}} km de distância",
+    "checkIn": "Fazer Check-in"
+  },
+  "checkIns": {
+    "title": "Check-ins",
+    "history": "Histórico de Check-ins",
+    "noCheckIns": "Nenhum check-in encontrado",
+    "checkedInAt": "Check-in feito em"
+  },
+  "profile": {
+    "title": "Perfil",
+    "personalInfo": "Informações Pessoais",
+    "updateProfile": "Atualizar Perfil"
+  },
+  "admin": {
+    "title": "Painel Admin",
+    "manageGyms": "Gerenciar Academias",
+    "manageUsers": "Gerenciar Usuários"
+  }
+}

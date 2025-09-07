@@ -1,0 +1,71 @@
+{
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "back": "Back",
+    "search": "Search",
+    "email": "Email",
+    "password": "Password",
+    "name": "Name"
+  },
+  "navigation": {
+    "dashboard": "Dashboard",
+    "gyms": "Gyms",
+    "checkIns": "Check-ins",
+    "profile": "Profile",
+    "admin": "Admin",
+    "logout": "Logout"
+  },
+  "auth": {
+    "login": "Login",
+    "register": "Register",
+    "loginTitle": "Login to your account",
+    "loginDescription": "Enter your credentials to access your fitness dashboard",
+    "registerTitle": "Create an account",
+    "registerDescription": "Join us to track your fitness journey",
+    "emailRequired": "Please enter a valid email",
+    "passwordRequired": "Password must be at least 6 characters",
+    "nameRequired": "Name is required",
+    "loginButton": "Sign In",
+    "registerButton": "Create Account",
+    "noAccount": "Don't have an account?",
+    "hasAccount": "Already have an account?",
+    "signUp": "Sign up",
+    "signIn": "Sign in"
+  },
+  "dashboard": {
+    "welcome": "Welcome back, {{name}}!",
+    "journeyOverview": "Here's your fitness journey overview",
+    "totalCheckIns": "Total Check-ins",
+    "thisWeek": "This Week",
+    "thisMonth": "This Month",
+    "streak": "Current Streak",
+    "days": "days"
+  },
+  "gyms": {
+    "title": "Gyms",
+    "searchPlaceholder": "Search gyms...",
+    "noGymsFound": "No gyms found",
+    "distance": "{{distance}} km away",
+    "checkIn": "Check In"
+  },
+  "checkIns": {
+    "title": "Check-ins",
+    "history": "Check-in History",
+    "noCheckIns": "No check-ins found",
+    "checkedInAt": "Checked in at"
+  },
+  "profile": {
+    "title": "Profile",
+    "personalInfo": "Personal Information",
+    "updateProfile": "Update Profile"
+  },
+  "admin": {
+    "title": "Admin Panel",
+    "manageGyms": "Manage Gyms",
+    "manageUsers": "Manage Users"
+  }
+}
