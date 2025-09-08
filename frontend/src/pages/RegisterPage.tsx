@@ -17,7 +17,7 @@ export function RegisterPage() {
 
   const registerSchema = z.object({
     name: z.string().min(1, t('validation.nameRequired')),
-    email: z.string().email(t('validation.emailInvalid')),
+    email: z.email(t('validation.emailInvalid')),
     password: z.string().min(6, t('validation.passwordMin')),
   })
 

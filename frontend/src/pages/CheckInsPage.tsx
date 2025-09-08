@@ -8,8 +8,10 @@ import { useAuth } from '@/contexts/AuthContext'
 import { Loading } from '@/components/ui/Loading'
 import { toast } from 'sonner'
 import { format } from 'date-fns'
+import { useTranslation } from 'react-i18next'
 
 export function CheckInsPage() {
+  const { t } = useTranslation()
   const [currentPage, setCurrentPage] = useState(1)
   const { user } = useAuth()
   
@@ -19,9 +21,9 @@ export function CheckInsPage() {
   async function handleValidateCheckIn(checkInId: string) {
     try {
       await validateCheckInMutation.mutateAsync({ checkInId })
-      toast.success('Check-in validated successfully!')
+      toast.success(t('common.validationSuccess'))
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || 'Validation failed')
+      toast.error(error?.response?.data?.message || t('common.validationFailed'))
     }
   }
 
@@ -44,9 +46,9 @@ export function CheckInsPage() {
   return (
     <div className="px-4 py-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Check-in History</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('checkIns.title')}</h1>
         <p className="text-gray-600 mt-2">
-          Your gym visit history and check-in details
+          {t('checkIns.description')}
         </p>
       </div>
 
@@ -54,10 +56,10 @@ export function CheckInsPage() {
         <div className="text-center py-12">
           <Calendar className="h-12 w-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">
-            No check-ins yet
+            {t('checkIns.noCheckIns')}
           </h3>
           <p className="text-gray-600">
-            Start by checking in to a gym to see your history here.
+            {t('checkIns.startChecking')}
           </p>
         </div>
       ) : (
@@ -75,12 +77,12 @@ export function CheckInsPage() {
                       {checkIn.validated_at ? (
                         <div className="flex items-center text-green-600">
                           <CheckCircle className="w-4 h-4 mr-1" />
-                          <span className="text-sm">Validated</span>
+                          <span className="text-sm">{t('checkIns.validated')}</span>
                         </div>
                       ) : (
                         <div className="flex items-center text-yellow-600">
                           <Clock className="w-4 h-4 mr-1" />
-                          <span className="text-sm">Pending</span>
+                          <span className="text-sm">{t('checkIns.pending')}</span>
                         </div>
                       )}
                     </div>
@@ -89,31 +91,31 @@ export function CheckInsPage() {
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Check-in Details</h4>
+                      <h4 className="font-medium text-gray-900 mb-2">{t('checkIns.details')}</h4>
                       <div className="space-y-1 text-sm text-gray-600">
                         <div>
-                          <span className="font-medium">Date:</span> {formatDate(checkIn.created_at)}
+                          <span className="font-medium">{t('checkIns.date')}:</span> {formatDate(checkIn.created_at)}
                         </div>
                         <div>
-                          <span className="font-medium">Time:</span> {formatTime(checkIn.created_at)}
+                          <span className="font-medium">{t('checkIns.time')}:</span> {formatTime(checkIn.created_at)}
                         </div>
                         {checkIn.validated_at && (
                           <div>
-                            <span className="font-medium">Validated:</span> {formatTime(checkIn.validated_at)}
+                            <span className="font-medium">{t('checkIns.validated')}:</span> {formatTime(checkIn.validated_at)}
                           </div>
                         )}
                       </div>
                     </div>
                     
                     <div>
-                      <h4 className="font-medium text-gray-900 mb-2">Gym Information</h4>
+                      <h4 className="font-medium text-gray-900 mb-2">{t('checkIns.gymInformation')}</h4>
                       <div className="space-y-1 text-sm text-gray-600">
                         {checkIn.gym.description && (
                           <div>{checkIn.gym.description}</div>
                         )}
                         {checkIn.gym.phone && (
                           <div>
-                            <span className="font-medium">Phone:</span> {checkIn.gym.phone}
+                            <span className="font-medium">{t('admin.phone')}:</span> {checkIn.gym.phone}
                           </div>
                         )}
                       </div>
@@ -128,7 +130,7 @@ export function CheckInsPage() {
                         onClick={() => handleValidateCheckIn(checkIn.id)}
                         disabled={validateCheckInMutation.isPending}
                       >
-                        {validateCheckInMutation.isPending ? 'Validating...' : 'Validate Check-in'}
+                        {validateCheckInMutation.isPending ? t('common.validating') : t('common.validateCheckIn')}
                       </Button>
                     </div>
                   )}
@@ -144,11 +146,11 @@ export function CheckInsPage() {
               disabled={currentPage === 1}
             >
               <ChevronLeft className="w-4 h-4 mr-2" />
-              Previous
+              {t('common.previous')}
             </Button>
             
             <span className="text-sm text-gray-600">
-              Page {currentPage}
+              {t('common.page')} {currentPage}
             </span>
             
             <Button
@@ -156,7 +158,7 @@ export function CheckInsPage() {
               onClick={() => setCurrentPage(page => page + 1)}
               disabled={!checkIns || checkIns.length < 20}
             >
-              Next
+              {t('common.next')}
               <ChevronRight className="w-4 h-4 ml-2" />
             </Button>
           </div>

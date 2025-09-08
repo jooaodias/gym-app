@@ -38,20 +38,20 @@ export function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">{metrics?.checkInsCount || 0}</div>
             <p className="text-xs text-muted-foreground">
-              Your total gym visits
+              {t('common.totalGymVisits')}
             </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-sm font-medium">Account Status</CardTitle>
+            <CardTitle className="text-sm font-medium">{t('common.accountStatus')}</CardTitle>
             <User className="h-4 w-4 text-muted-foreground" />
           </CardHeader>
           <CardContent>
             <div className="text-2xl font-bold">{user?.role}</div>
             <p className="text-xs text-muted-foreground">
-              Your membership level
+              {t('common.membershipLevel')}
             </p>
           </CardContent>
         </Card>
@@ -64,7 +64,7 @@ export function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">-</div>
             <p className="text-xs text-muted-foreground">
-              Coming soon
+              {t('admin.comingSoon')}
             </p>
           </CardContent>
         </Card>
@@ -77,7 +77,7 @@ export function DashboardPage() {
           <CardContent>
             <div className="text-2xl font-bold">-</div>
             <p className="text-xs text-muted-foreground">
-              Coming soon
+              {t('admin.comingSoon')}
             </p>
           </CardContent>
         </Card>
@@ -86,7 +86,7 @@ export function DashboardPage() {
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         <Card>
           <CardHeader>
-            <CardTitle>Quick Actions</CardTitle>
+            <CardTitle>{t('common.quickActions')}</CardTitle>
           </CardHeader>
           <CardContent className="grid grid-cols-2 gap-4">
             <a
@@ -96,7 +96,7 @@ export function DashboardPage() {
               <div className="text-center">
                 <Dumbbell className="h-8 w-8 mx-auto text-muted-foreground group-hover:text-primary transition-colors" />
                 <span className="mt-2 block text-sm font-medium text-foreground">
-                  Find Gyms
+                  {t('common.findGyms')}
                 </span>
               </div>
             </a>
@@ -107,7 +107,7 @@ export function DashboardPage() {
               <div className="text-center">
                 <Calendar className="h-8 w-8 mx-auto text-muted-foreground group-hover:text-primary transition-colors" />
                 <span className="mt-2 block text-sm font-medium text-foreground">
-                  View History
+                  {t('common.viewHistory')}
                 </span>
               </div>
             </a>
@@ -116,11 +116,11 @@ export function DashboardPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Recent Activity</CardTitle>
+            <CardTitle>{t('common.recentActivity')}</CardTitle>
           </CardHeader>
           <CardContent>
             <div className="text-sm text-muted-foreground">
-              No recent activity. Start by checking in to a gym!
+              {t('common.noRecentActivity')}
             </div>
           </CardContent>
         </Card>

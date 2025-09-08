@@ -36,7 +36,7 @@ export function AppLayout() {
             <div className="flex">
               <div className="flex-shrink-0 flex items-center">
                 <Dumbbell className="h-8 w-8 text-primary" />
-                <span className="ml-2 text-xl font-bold text-foreground">GymApp</span>
+                <span className="ml-2 text-xl font-bold text-foreground">{t('common.gymApp')}</span>
               </div>
               <div className="hidden sm:ml-6 sm:flex sm:space-x-8">
                 {navigation.map((item) => {
@@ -61,7 +61,7 @@ export function AppLayout() {
             </div>
             <div className="flex items-center space-x-4">
               <LanguageSwitcher />
-              <span className="text-sm text-muted-foreground">Hello, {user?.name}</span>
+              <span className="text-sm text-muted-foreground">{t('common.hello')}, {user?.name}</span>
               <Button
                 variant="ghost"
                 size="sm"
