@@ -9,8 +9,10 @@ import { useGeolocation } from '@/hooks/use-geolocation'
 import { Loading } from '@/components/ui/Loading'
 import { toast } from 'sonner'
 import type { Gym } from '@/types/api'
+import { useTranslation } from 'react-i18next'
 
 export function GymsPage() {
+  const { t } = useTranslation()
   const [searchQuery, setSearchQuery] = useState('')
   const [showNearby, setShowNearby] = useState(false)
   
@@ -30,7 +32,7 @@ export function GymsPage() {
   function handleSearch(e: React.FormEvent) {
     e.preventDefault()
     if (!searchQuery.trim()) {
-      toast.error('Please enter a search query')
+      toast.error(t('common.enterSearchQuery'))
       return
     }
   }
@@ -45,7 +47,7 @@ export function GymsPage() {
 
   async function handleCheckIn(gym: Gym) {
     if (!latitude || !longitude) {
-      toast.error('Please enable location access to check in')
+      toast.error(t('common.enableLocationAccess'))
       return
     }
 
@@ -57,9 +59,9 @@ export function GymsPage() {
           longitude,
         },
       })
-      toast.success(`Checked in to ${gym.title}!`)
+      toast.success(t('common.checkedInSuccess', { gymName: gym.title }))
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || 'Check-in failed')
+      toast.error(error?.response?.data?.message || t('common.checkInFailed'))
     }
   }
 
@@ -69,9 +71,9 @@ export function GymsPage() {
   return (
     <div className="px-4 py-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Find Gyms</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('gyms.findGyms')}</h1>
         <p className="text-gray-600 mt-2">
-          Search for gyms or find ones nearby
+            {t('gyms.searchOrFind')}
         </p>
       </div>
 
@@ -80,7 +82,7 @@ export function GymsPage() {
           <div className="flex-1">
             <Input
               type="text"
-              placeholder="Search for gyms..."
+              placeholder={t('common.searchForGyms')}
               value={searchQuery}
               onChange={(e) => {
                 setSearchQuery(e.target.value)
@@ -90,7 +92,7 @@ export function GymsPage() {
           </div>
           <Button type="submit" disabled={!searchQuery.trim()}>
             <Search className="w-4 h-4 mr-2" />
-            Search
+            {t('gyms.search')}
           </Button>
         </form>
 
@@ -101,7 +103,7 @@ export function GymsPage() {
             disabled={locationLoading}
           >
             <Navigation className="w-4 h-4 mr-2" />
-            {locationLoading ? 'Getting location...' : 'Find nearby gyms'}
+            {locationLoading ? t('gyms.gettingLocation') : t('gyms.findNearby')}
           </Button>
           
           {locationError && (
@@ -120,12 +122,12 @@ export function GymsPage() {
         <div className="text-center py-12">
           <MapPin className="h-12 w-12 text-gray-400 mx-auto mb-4" />
           <h3 className="text-lg font-medium text-gray-900 mb-2">
-            No gyms found
+            {t('gyms.noGymsFound')}
           </h3>
           <p className="text-gray-600">
             {showNearby 
-              ? 'No gyms found in your area. Try expanding your search.'
-              : 'Try searching with different keywords.'
+              ? t('gyms.noGymsFoundInArea')
+              : t('gyms.tryingSearch')
             }
           </p>
         </div>
@@ -163,8 +165,8 @@ export function GymsPage() {
                 disabled={createCheckInMutation.isPending || !latitude || !longitude}
               >
                 {createCheckInMutation.isPending 
-                  ? 'Checking in...' 
-                  : 'Check in'
+                  ? t('gyms.checkInLoading')
+                  : t('gyms.checkIn')
                 }
               </Button>
             </CardContent>

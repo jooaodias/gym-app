@@ -6,8 +6,10 @@ import { useUserMetrics } from '@/hooks/use-check-ins'
 import { useSignOut } from '@/hooks/use-auth'
 import { Loading } from '@/components/ui/Loading'
 import { format } from 'date-fns'
+import { useTranslation } from 'react-i18next'
 
 export function ProfilePage() {
+  const { t } = useTranslation()
   const { user } = useAuth()
   const { data: metrics, isLoading: metricsLoading } = useUserMetrics()
   const signOutMutation = useSignOut()
@@ -27,9 +29,9 @@ export function ProfilePage() {
   return (
     <div className="px-4 py-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Profile</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('profile.title')}</h1>
         <p className="text-gray-600 mt-2">
-          Manage your account information and settings
+          {t('profile.description')}
         </p>
       </div>
 
@@ -39,14 +41,14 @@ export function ProfilePage() {
             <CardHeader>
               <CardTitle className="flex items-center">
                 <User className="w-5 h-5 mr-2" />
-                Personal Information
+                {t('profile.personalInformation')}
               </CardTitle>
             </CardHeader>
             <CardContent className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Name
+                    {t('profile.name')}
                   </label>
                   <div className="p-3 bg-gray-50 rounded-md">
                     {user.name}
@@ -55,7 +57,7 @@ export function ProfilePage() {
                 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Email
+                    {t('profile.email')}
                   </label>
                   <div className="p-3 bg-gray-50 rounded-md flex items-center">
                     <Mail className="w-4 h-4 mr-2 text-gray-400" />
@@ -67,7 +69,7 @@ export function ProfilePage() {
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Role
+                    {t('profile.role')}
                   </label>
                   <div className="p-3 bg-gray-50 rounded-md flex items-center">
                     <Shield className="w-4 h-4 mr-2 text-gray-400" />
@@ -77,7 +79,7 @@ export function ProfilePage() {
                 
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-2">
-                    Member Since
+                    {t('profile.memberSince')}
                   </label>
                   <div className="p-3 bg-gray-50 rounded-md flex items-center">
                     <Calendar className="w-4 h-4 mr-2 text-gray-400" />
@@ -92,7 +94,7 @@ export function ProfilePage() {
         <div className="space-y-6">
           <Card>
             <CardHeader>
-              <CardTitle>Activity Stats</CardTitle>
+              <CardTitle>{t('profile.activityStats')}</CardTitle>
             </CardHeader>
             <CardContent>
               {metricsLoading ? (
@@ -105,7 +107,7 @@ export function ProfilePage() {
                     <div className="text-3xl font-bold text-blue-600">
                       {metrics?.checkInsCount || 0}
                     </div>
-                    <div className="text-sm text-gray-600">Total Check-ins</div>
+                    <div className="text-sm text-gray-600">{t('profile.totalCheckIns')}</div>
                   </div>
                 </div>
               )}
@@ -114,7 +116,7 @@ export function ProfilePage() {
 
           <Card>
             <CardHeader>
-              <CardTitle>Account Actions</CardTitle>
+              <CardTitle>{t('profile.accountActions')}</CardTitle>
             </CardHeader>
             <CardContent className="space-y-3">
               <Button
@@ -124,7 +126,7 @@ export function ProfilePage() {
                   // TODO: Implement edit profile
                 }}
               >
-                Edit Profile
+               {t('profile.editProfile')}
               </Button>
               
               <Button
@@ -133,7 +135,7 @@ export function ProfilePage() {
                 onClick={handleSignOut}
                 disabled={signOutMutation.isPending}
               >
-                {signOutMutation.isPending ? 'Signing out...' : 'Sign Out'}
+                {signOutMutation.isPending ? t('common.signingOut') : t('common.signOut')}
               </Button>
             </CardContent>
           </Card>

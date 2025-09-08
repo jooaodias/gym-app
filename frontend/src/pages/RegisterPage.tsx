@@ -3,22 +3,25 @@ import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z } from 'zod'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card'
 import { Input } from '@/components/ui/Input'
 import { Button } from '@/components/ui/Button'
+import { LanguageSwitcher } from '@/components/LanguageSwitcher'
 import { useRegister } from '@/hooks/use-auth'
-
-const registerSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  email: z.string().email('Please enter a valid email'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-})
-
-type RegisterForm = z.infer<typeof registerSchema>
 
 export function RegisterPage() {
   const navigate = useNavigate()
   const registerMutation = useRegister()
+  const { t } = useTranslation()
+
+  const registerSchema = z.object({
+    name: z.string().min(1, t('validation.nameRequired')),
+    email: z.email(t('validation.emailInvalid')),
+    password: z.string().min(6, t('validation.passwordMin')),
+  })
+
+  type RegisterForm = z.infer<typeof registerSchema>
 
   const {
     register,
@@ -31,85 +34,96 @@ export function RegisterPage() {
   async function onSubmit(data: RegisterForm) {
     try {
       await registerMutation.mutateAsync(data)
-      toast.success('Account created successfully! Please sign in.')
+      toast.success(t('auth.register.registerSuccess'))
       navigate('/login')
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || 'Registration failed')
+      toast.error(error?.response?.data?.message || t('auth.register.registerFailed'))
     }
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-blue-50 via-indigo-50 to-purple-50 p-4">
       <div className="w-full max-w-md">
-        <Card>
-          <CardHeader className="text-center">
-            <CardTitle className="text-2xl">Create an account</CardTitle>
-            <p className="text-gray-600">Join our gym community</p>
+        <div className="flex justify-end mb-4">
+          <LanguageSwitcher />
+        </div>
+        <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
+          <CardHeader className="text-center space-y-2 pb-8">
+            <div className="mx-auto w-12 h-12 bg-primary rounded-full flex items-center justify-center mb-4">
+              <svg className="w-6 h-6 text-primary-foreground" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+              </svg>
+            </div>
+            <CardTitle className="text-3xl font-bold">{t('auth.register.title')}</CardTitle>
+            <p className="text-base text-muted-foreground">{t('auth.register.description')}</p>
           </CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-              <div>
-                <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-1">
-                  Name
+          <CardContent className="space-y-6">
+            <form onSubmit={handleSubmit(onSubmit)} className="space-y-6">
+              <div className="space-y-2">
+                <label htmlFor="name" className="block text-sm font-medium text-foreground">
+                  {t('auth.register.name')}
                 </label>
                 <Input
                   id="name"
                   type="text"
-                  placeholder="Enter your name"
+                  placeholder={t('auth.register.namePlaceholder')}
+                  className="h-11"
                   {...register('name')}
                 />
                 {errors.name && (
-                  <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                  <p className="text-destructive text-sm">{errors.name.message}</p>
                 )}
               </div>
 
-              <div>
-                <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-1">
-                  Email
+              <div className="space-y-2">
+                <label htmlFor="email" className="block text-sm font-medium text-foreground">
+                  {t('auth.register.email')}
                 </label>
                 <Input
                   id="email"
                   type="email"
-                  placeholder="Enter your email"
+                  placeholder={t('auth.register.emailPlaceholder')}
+                  className="h-11"
                   {...register('email')}
                 />
                 {errors.email && (
-                  <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                  <p className="text-destructive text-sm">{errors.email.message}</p>
                 )}
               </div>
 
-              <div>
-                <label htmlFor="password" className="block text-sm font-medium text-gray-700 mb-1">
-                  Password
+              <div className="space-y-2">
+                <label htmlFor="password" className="block text-sm font-medium text-foreground">
+                  {t('auth.register.password')}
                 </label>
                 <Input
                   id="password"
                   type="password"
-                  placeholder="Enter your password"
+                  placeholder={t('auth.register.passwordPlaceholder')}
+                  className="h-11"
                   {...register('password')}
                 />
                 {errors.password && (
-                  <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                  <p className="text-destructive text-sm">{errors.password.message}</p>
                 )}
               </div>
 
               <Button
                 type="submit"
-                className="w-full"
+                className="w-full h-11 text-base"
                 disabled={registerMutation.isPending}
               >
-                {registerMutation.isPending ? 'Creating account...' : 'Create account'}
+                {registerMutation.isPending ? t('auth.register.signingUp') : t('auth.register.signUpButton')}
               </Button>
             </form>
 
-            <div className="mt-6 text-center">
-              <p className="text-sm text-gray-600">
-                Already have an account?{' '}
+            <div className="text-center">
+              <p className="text-sm text-muted-foreground">
+                {t('auth.register.haveAccount')}{' '}
                 <Link
                   to="/login"
-                  className="text-blue-600 hover:text-blue-500 font-medium"
+                  className="text-primary hover:text-primary/80 font-medium underline underline-offset-4"
                 >
-                  Sign in
+                  {t('auth.register.signIn')}
                 </Link>
               </p>
             </div>

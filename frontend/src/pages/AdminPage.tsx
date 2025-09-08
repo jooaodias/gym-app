@@ -8,20 +8,28 @@ import { Button } from '@/components/ui/Button'
 import { useCreateGym } from '@/hooks/use-gyms'
 import { useAuth } from '@/contexts/AuthContext'
 import { toast } from 'sonner'
+import { useTranslation } from 'react-i18next'
 
-const createGymSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  description: z.string().optional(),
-  phone: z.string().optional(),
-  latitude: z.number().min(-90).max(90),
-  longitude: z.number().min(-180).max(180),
-})
-
-type CreateGymForm = z.infer<typeof createGymSchema>
+type CreateGymForm = {
+  title: string
+  description?: string
+  phone?: string
+  latitude: number
+  longitude: number
+}
 
 export function AdminPage() {
   const { user } = useAuth()
   const createGymMutation = useCreateGym()
+  const { t } = useTranslation()
+
+  const createGymSchema = z.object({
+    title: z.string().min(1, t('admin.titleRequired')),
+    description: z.string().optional(),
+    phone: z.string().optional(),
+    latitude: z.number().min(-90).max(90),
+    longitude: z.number().min(-180).max(180),
+  })
 
   const {
     register,
@@ -39,10 +47,10 @@ export function AdminPage() {
         <Card>
           <CardContent className="text-center py-12">
             <h3 className="text-lg font-medium text-gray-900 mb-2">
-              Access Denied
+              {t('admin.accessDenied')}
             </h3>
             <p className="text-gray-600">
-              You don't have permission to access this page.
+              {t('admin.noPermission')}
             </p>
           </CardContent>
         </Card>
@@ -59,19 +67,19 @@ export function AdminPage() {
         latitude: data.latitude,
         longitude: data.longitude,
       })
-      toast.success('Gym created successfully!')
+      toast.success(t('admin.gymCreatedSuccess'))
       reset()
     } catch (error: any) {
-      toast.error(error?.response?.data?.message || 'Failed to create gym')
+      toast.error(error?.response?.data?.message || t('admin.gymCreatedFailed'))
     }
   }
 
   return (
     <div className="px-4 py-6">
       <div className="mb-8">
-        <h1 className="text-3xl font-bold text-gray-900">Admin Panel</h1>
+        <h1 className="text-3xl font-bold text-gray-900">{t('admin.title')}</h1>
         <p className="text-gray-600 mt-2">
-          Manage gyms and validate check-ins
+          {t('admin.manageAndValidate')}
         </p>
       </div>
 
@@ -80,19 +88,19 @@ export function AdminPage() {
           <CardHeader>
             <CardTitle className="flex items-center">
               <Plus className="w-5 h-5 mr-2" />
-              Create New Gym
+              {t('admin.createNewGym')}
             </CardTitle>
           </CardHeader>
           <CardContent>
             <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
               <div>
                 <label htmlFor="title" className="block text-sm font-medium text-gray-700 mb-1">
-                  Gym Name *
+                  {t('admin.gymName')} *
                 </label>
                 <Input
                   id="title"
                   type="text"
-                  placeholder="Enter gym name"
+                  placeholder={t('admin.enterGymName')}
                   {...register('title')}
                 />
                 {errors.title && (
@@ -102,12 +110,12 @@ export function AdminPage() {
 
               <div>
                 <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">
-                  Description
+                  {t('admin.description')}
                 </label>
                 <Input
                   id="description"
                   type="text"
-                  placeholder="Enter gym description"
+                  placeholder={t('admin.enterGymDescription')}
                   {...register('description')}
                 />
                 {errors.description && (
@@ -117,12 +125,12 @@ export function AdminPage() {
 
               <div>
                 <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-1">
-                  Phone
+                  {t('admin.phone')}
                 </label>
                 <Input
                   id="phone"
                   type="tel"
-                  placeholder="Enter phone number"
+                  placeholder={t('admin.enterPhoneNumber')}
                   {...register('phone')}
                 />
                 {errors.phone && (
@@ -133,7 +141,7 @@ export function AdminPage() {
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <label htmlFor="latitude" className="block text-sm font-medium text-gray-700 mb-1">
-                    Latitude *
+                    {t('admin.latitude')} *
                   </label>
                   <Input
                     id="latitude"
@@ -149,7 +157,7 @@ export function AdminPage() {
 
                 <div>
                   <label htmlFor="longitude" className="block text-sm font-medium text-gray-700 mb-1">
-                    Longitude *
+                    {t('admin.longitude')} *
                   </label>
                   <Input
                     id="longitude"
@@ -169,7 +177,7 @@ export function AdminPage() {
                 className="w-full"
                 disabled={createGymMutation.isPending}
               >
-                {createGymMutation.isPending ? 'Creating...' : 'Create Gym'}
+                {createGymMutation.isPending ? t('admin.creating') : t('admin.createGym')}
               </Button>
             </form>
           </CardContent>
@@ -177,45 +185,45 @@ export function AdminPage() {
 
         <Card>
           <CardHeader>
-            <CardTitle>Admin Actions</CardTitle>
+            <CardTitle>{t('admin.adminActions')}</CardTitle>
           </CardHeader>
           <CardContent className="space-y-4">
             <div className="p-4 border border-gray-200 rounded-lg">
               <div className="flex items-center mb-2">
                 <Dumbbell className="w-5 h-5 text-blue-600 mr-2" />
-                <h3 className="font-medium">Gym Management</h3>
+                <h3 className="font-medium">{t('admin.gymManagement')}</h3>
               </div>
               <p className="text-sm text-gray-600 mb-3">
-                Create and manage gym locations for users to check in.
+                {t('admin.gymManagementDesc')}
               </p>
               <Button variant="outline" size="sm">
-                View All Gyms
+                {t('admin.viewAllGyms')}
               </Button>
             </div>
 
             <div className="p-4 border border-gray-200 rounded-lg">
               <div className="flex items-center mb-2">
                 <MapPin className="w-5 h-5 text-green-600 mr-2" />
-                <h3 className="font-medium">Check-in Validation</h3>
+                <h3 className="font-medium">{t('admin.checkInValidation')}</h3>
               </div>
               <p className="text-sm text-gray-600 mb-3">
-                Validate user check-ins from the check-ins history page.
+                {t('admin.checkInValidationDesc')}
               </p>
               <Button variant="outline" size="sm">
-                <a href="/check-ins">View Check-ins</a>
+                <a href="/check-ins">{t('admin.viewCheckIns')}</a>
               </Button>
             </div>
 
             <div className="p-4 border border-gray-200 rounded-lg">
               <div className="flex items-center mb-2">
                 <Phone className="w-5 h-5 text-purple-600 mr-2" />
-                <h3 className="font-medium">User Management</h3>
+                <h3 className="font-medium">{t('admin.userManagement')}</h3>
               </div>
               <p className="text-sm text-gray-600 mb-3">
-                Manage user accounts and permissions (coming soon).
+                {t('admin.userManagementDesc')}
               </p>
               <Button variant="outline" size="sm" disabled>
-                Coming Soon
+                {t('admin.comingSoon')}
               </Button>
             </div>
           </CardContent>
